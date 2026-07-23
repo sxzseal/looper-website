@@ -1,0 +1,61 @@
+---
+// FAQ 手风琴
+const faqs = [
+  {
+    q: '一定要有 API Key 吗?',
+    a: '不需要。Looper 直接 fork 本地 claude CLI 子进程,工作流即当前用户身份下的会话。你在终端能用 Claude Code,Looper 就能跑。',
+  },
+  {
+    q: '数据会上传到云端吗?',
+    a: '工作流定义、执行历史、Skill 都在本机存储,默认不外传。只有当你显式调用需要联网的 Skill (如 web-search) 时,才会向对应服务发起请求。',
+  },
+  {
+    q: '和直接用 Claude Code CLI 有什么区别?',
+    a: 'CLI 适合单次会话。Looper 把"可复用的流水线"作为一等资产:DAG 编排、可回放的执行历史、Skill 复用、可视化触发。工作流是文件,能进 git、diff、分享。',
+  },
+  {
+    q: '工作流是怎么存储的?',
+    a: '每条工作流是本地文件,含 DAG 结构 + Skill 引用 + 元数据。可以直接进 git 仓库,团队成员克隆下来就能跑,不用重复配置。',
+  },
+  {
+    q: '支持哪些操作系统?',
+    a: '当前提供 macOS (Apple Silicon 主推,Intel 兜底) 和 Windows 10+ x64。Linux 版本正在打包,可以邮件订阅通知。',
+  },
+  {
+    q: '如何自定义 Skill?',
+    a: '任何符合 Claude Code Skill 规范的目录都能被 Looper 识别。把 Skill 放到 ~/.claude/skills/,重启后就能在 Skill 发现页看到,直接拖到画布上使用。',
+  },
+];
+---
+
+<section id="faq" class="relative py-32 px-4">
+  <div class="mx-auto max-w-3xl">
+    <div class="text-center mb-16">
+      <div class="reveal inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full glass text-xs text-white/60">
+        <span class="w-1 h-1 rounded-full bg-aurora-pink"></span>
+        常见问题
+      </div>
+      <h2 class="reveal text-4xl md:text-5xl font-bold tracking-tight text-gradient">
+        你可能想问
+      </h2>
+    </div>
+
+    <div class="stagger space-y-3">
+      {faqs.map((f) => (
+        <details class="group glass hover:border-white/20 transition-colors">
+          <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none">
+            <span class="font-medium text-white/90 group-hover:text-white transition-colors">
+              {f.q}
+            </span>
+            <span class="shrink-0 w-8 h-8 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center transition-transform group-open:rotate-45">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            </span>
+          </summary>
+          <div class="px-6 pb-5 -mt-1 text-white/60 leading-relaxed text-sm">
+            {f.a}
+          </div>
+        </details>
+      ))}
+    </div>
+  </div>
+</section>

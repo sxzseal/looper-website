@@ -1,0 +1,117 @@
+---
+// 场景展示:粘性滚动,左右两侧交替
+const scenarios = [
+  {
+    tag: '每日汇总',
+    title: '把散落的信号串成一份日报',
+    desc: '把 PR、Issue、日历、Slack 的碎片信号,通过一条 DAG 拉齐成结构化日报。跑一次配一次,以后每天早上定时开跑。',
+    tint: 'violet',
+    codeLines: [
+      { prefix: '$', text: 'loop run daily-report' },
+      { prefix: '→', text: 'fetching pr / issue / cal ...', muted: true },
+      { prefix: '→', text: 'summarize by claude ...', muted: true },
+      { prefix: '✓', text: 'saved: reports/2026-07-23.md', ok: true },
+    ],
+  },
+  {
+    tag: '代码审查',
+    title: '让 review 走一条固定流水线',
+    desc: '拉最新 diff → 静态扫描 → 5 维 LLM 审查 → critical/high 对抗性验证 → 归档。每个环节可回放、可 diff、可复用。',
+    tint: 'cyan',
+    codeLines: [
+      { prefix: '$', text: 'loop run code-review --pr 428' },
+      { prefix: '·', text: 'scan: 3 patterns hit', muted: true },
+      { prefix: '·', text: 'llm judge x5 ...', muted: true },
+      { prefix: '⚠', text: '2 critical · 1 high', warn: true },
+    ],
+  },
+  {
+    tag: '内容生产',
+    title: '一次调研,多种产物',
+    desc: '同一份材料,通过分支输出到 PRD、周报、Slide、博客草稿。工作流是文件,分享给同事直接开跑。',
+    tint: 'pink',
+    codeLines: [
+      { prefix: '$', text: 'loop run research-fanout' },
+      { prefix: '⤳', text: 'draft prd.md', muted: true },
+      { prefix: '⤳', text: 'draft slide.md', muted: true },
+      { prefix: '⤳', text: 'draft blog.md', muted: true },
+    ],
+  },
+];
+
+const tintMap: Record<string, string> = {
+  violet: 'bg-aurora-violet/20 border-aurora-violet/40 text-aurora-violet',
+  cyan: 'bg-aurora-cyan/20 border-aurora-cyan/40 text-aurora-cyan',
+  pink: 'bg-aurora-pink/20 border-aurora-pink/40 text-aurora-pink',
+};
+
+const glowMap: Record<string, string> = {
+  violet: 'bg-aurora-violet/25',
+  cyan: 'bg-aurora-cyan/25',
+  pink: 'bg-aurora-pink/25',
+};
+---
+
+<section id="showcase" class="relative py-32 px-4">
+  <div class="mx-auto max-w-6xl">
+    <div class="text-center mb-24">
+      <div class="reveal inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full glass text-xs text-white/60">
+        <span class="w-1 h-1 rounded-full bg-aurora-cyan"></span>
+        使用场景
+      </div>
+      <h2 class="reveal text-4xl md:text-5xl font-bold tracking-tight text-gradient">
+        跑得动的日常工作流
+      </h2>
+    </div>
+
+    <div class="space-y-32">
+      {scenarios.map((s, i) => (
+        <div class={`grid md:grid-cols-2 gap-12 items-center ${i % 2 === 1 ? 'md:grid-flow-dense' : ''}`}>
+          <!-- 文字块 -->
+          <div class={`reveal ${i % 2 === 1 ? 'md:col-start-2' : ''}`}>
+            <div class={`inline-flex items-center gap-2 px-3 py-1 mb-5 rounded-full border text-xs font-medium ${tintMap[s.tint]}`}>
+              {s.tag}
+            </div>
+            <h3 class="text-3xl md:text-4xl font-semibold mb-4 text-gradient leading-tight">
+              {s.title}
+            </h3>
+            <p class="text-white/60 leading-relaxed">
+              {s.desc}
+            </p>
+          </div>
+
+          <!-- 代码卡片 -->
+          <div class={`reveal-scale relative ${i % 2 === 1 ? 'md:col-start-1 md:row-start-1' : ''}`}>
+            <div class={`absolute inset-0 blur-3xl ${glowMap[s.tint]} rounded-full`}></div>
+            <div class="glass-strong relative overflow-hidden">
+              <div class="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.06]">
+                <div class="flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]/60"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#febc2e]/60"></span>
+                  <span class="w-2.5 h-2.5 rounded-full bg-[#28c840]/60"></span>
+                </div>
+                <div class="text-[10px] text-white/30 font-mono">looper · terminal</div>
+                <div class="w-14"></div>
+              </div>
+              <div class="p-5 font-mono text-xs space-y-2 min-h-[180px]">
+                {s.codeLines.map((line) => (
+                  <div class="flex gap-3">
+                    <span class={
+                      line.ok ? 'text-emerald-400 shrink-0'
+                      : line.warn ? 'text-aurora-amber shrink-0'
+                      : line.muted ? 'text-white/30 shrink-0'
+                      : 'text-aurora-cyan shrink-0'
+                    }>{line.prefix}</span>
+                    <span class={line.muted ? 'text-white/40' : line.ok ? 'text-white/90' : 'text-white/80'}>
+                      {line.text}
+                    </span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
