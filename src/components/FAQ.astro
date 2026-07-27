@@ -2,28 +2,28 @@
 // FAQ 手风琴
 const faqs = [
   {
-    q: '一定要有 API Key 吗?',
-    a: '不需要。Looper 直接 fork 本地 claude CLI 子进程,工作流即当前用户身份下的会话。你在终端能用 Claude Code,Looper 就能跑。',
+    q: '要自己配 API Key 吗?',
+    a: '不需要。Looper 直接 fork 本机的 claude CLI 子进程,用的就是你现在终端里那份 Claude Code 会话。你终端能跑,Looper 就能跑。',
   },
   {
     q: '数据会上传到云端吗?',
-    a: '工作流定义、执行历史、Skill 都在本机存储,默认不外传。只有当你显式调用需要联网的 Skill (如 web-search) 时,才会向对应服务发起请求。',
+    a: '工作流、执行历史、Skill 都放在本机。只有当你自己调用需要联网的 Skill (比如 web-search) 时,才会走那个服务的网络请求。',
   },
   {
     q: '和直接用 Claude Code CLI 有什么区别?',
-    a: 'CLI 适合单次会话。Looper 把"可复用的流水线"作为一等资产:DAG 编排、可回放的执行历史、Skill 复用、可视化触发。工作流是文件,能进 git、diff、分享。',
+    a: 'CLI 适合单次会话,聊完就散了。Looper 把"可复用的流水线"当成主角:DAG 编辑、执行历史回放、Skill 复用、聊天式触发。工作流是文件,能进 git、diff、分享。',
   },
   {
-    q: '工作流是怎么存储的?',
-    a: '每条工作流是本地文件,含 DAG 结构 + Skill 引用 + 元数据。可以直接进 git 仓库,团队成员克隆下来就能跑,不用重复配置。',
+    q: '工作流长什么样?',
+    a: '每条工作流是本机的一个文件,里面是 DAG 结构 + Skill 引用 + 元数据。放进 git 仓库,同事拉下来就能跑,不用重复配置。',
   },
   {
-    q: '支持哪些操作系统?',
-    a: '当前提供 macOS (Apple Silicon 主推,Intel 兜底) 和 Windows 10+ x64。Linux 版本正在打包,可以邮件订阅通知。',
+    q: '支持哪些系统?',
+    a: '当前提供 macOS (Apple Silicon 主推,Intel 兜底) 和 Windows 10+ x64。Linux 正在打包。',
   },
   {
-    q: '如何自定义 Skill?',
-    a: '任何符合 Claude Code Skill 规范的目录都能被 Looper 识别。把 Skill 放到 ~/.claude/skills/,重启后就能在 Skill 发现页看到,直接拖到画布上使用。',
+    q: 'Skill 怎么加?',
+    a: '任何符合 Claude Code Skill 规范的目录都能被识别。放到 ~/.claude/skills/,重启后在 Skill 发现页就能看到,拖到画布上就能用。',
   },
 ];
 ---
@@ -36,7 +36,7 @@ const faqs = [
         常见问题
       </div>
       <h2 class="reveal text-4xl md:text-5xl font-bold tracking-tight text-gradient">
-        你可能想问
+        你可能会问
       </h2>
     </div>
 

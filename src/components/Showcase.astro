@@ -3,8 +3,8 @@
 const scenarios = [
   {
     tag: '每日汇总',
-    title: '把散落的信号串成一份日报',
-    desc: '把 PR、Issue、日历、Slack 的碎片信号,通过一条 DAG 拉齐成结构化日报。跑一次配一次,以后每天早上定时开跑。',
+    title: '把散落的信号拉齐成一份日报',
+    desc: 'PR、Issue、日历、Slack 里的碎片,用一条 DAG 拉齐、总结、归档。配一次以后每天早上自动跑,不需要你再动手。',
     tint: 'violet',
     codeLines: [
       { prefix: '$', text: 'loop run daily-report' },
@@ -15,8 +15,8 @@ const scenarios = [
   },
   {
     tag: '代码审查',
-    title: '让 review 走一条固定流水线',
-    desc: '拉最新 diff → 静态扫描 → 5 维 LLM 审查 → critical/high 对抗性验证 → 归档。每个环节可回放、可 diff、可复用。',
+    title: 'review 走一条固定流水线',
+    desc: '最新 diff → 静态扫描 → 分维度 LLM 审查 → critical/high 对抗性验证 → 归档。每个环节可回放,遇到问题能定位到是哪一步出的错。',
     tint: 'cyan',
     codeLines: [
       { prefix: '$', text: 'loop run code-review --pr 428' },
@@ -27,8 +27,8 @@ const scenarios = [
   },
   {
     tag: '内容生产',
-    title: '一次调研,多种产物',
-    desc: '同一份材料,通过分支输出到 PRD、周报、Slide、博客草稿。工作流是文件,分享给同事直接开跑。',
+    title: '同一份调研,分发到不同产物',
+    desc: '一份材料分支输出到 PRD、周报、Slide、博客草稿。改一次源头,下游全部重跑。工作流本身就是文件,分享出去别人也能跑。',
     tint: 'pink',
     codeLines: [
       { prefix: '$', text: 'loop run research-fanout' },
@@ -60,7 +60,7 @@ const glowMap: Record<string, string> = {
         使用场景
       </div>
       <h2 class="reveal text-4xl md:text-5xl font-bold tracking-tight text-gradient">
-        跑得动的日常工作流
+        它现在能跑什么
       </h2>
     </div>
 
