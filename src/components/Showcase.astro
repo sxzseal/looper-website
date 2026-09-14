@@ -3,8 +3,8 @@
 const scenarios = [
   {
     tag: '每日汇总',
-    title: '把散落的信号拉齐成一份日报',
-    desc: 'PR、Issue、日历、Slack 里的碎片,用一条 DAG 拉齐、总结、归档。配一次以后每天早上自动跑,不需要你再动手。',
+    title: '把散落的信息整理成一份可交付的日报',
+    desc: '将 PR、Issue、日历和协作消息串成一条汇总流程。需要时一键运行，结果与每一步的输出都会保留，方便复核和复用。',
     tint: 'violet',
     codeLines: [
       { prefix: '$', text: 'loop run daily-report' },
@@ -15,8 +15,8 @@ const scenarios = [
   },
   {
     tag: '代码审查',
-    title: 'review 走一条固定流水线',
-    desc: '最新 diff → 静态扫描 → 分维度 LLM 审查 → critical/high 对抗性验证 → 归档。每个环节可回放,遇到问题能定位到是哪一步出的错。',
+    title: '把代码审查拆成可追踪的环节',
+    desc: '把获取 diff、扫描、审查与风险确认编排为流程。每一步独立记录，发现的问题能回到对应环节，而不是散落在一次对话里。',
     tint: 'cyan',
     codeLines: [
       { prefix: '$', text: 'loop run code-review --pr 428' },
@@ -27,8 +27,8 @@ const scenarios = [
   },
   {
     tag: '内容生产',
-    title: '同一份调研,分发到不同产物',
-    desc: '一份材料分支输出到 PRD、周报、Slide、博客草稿。改一次源头,下游全部重跑。工作流本身就是文件,分享出去别人也能跑。',
+    title: '一次调研，衍生多份交付物',
+    desc: '让同一份材料分支生成 PRD、周报、演示稿或博客草稿。源材料更新后，按需重跑下游步骤，减少重复整理。',
     tint: 'pink',
     codeLines: [
       { prefix: '$', text: 'loop run research-fanout' },
@@ -55,12 +55,9 @@ const glowMap: Record<string, string> = {
 <section id="showcase" class="relative py-32 px-4">
   <div class="mx-auto max-w-6xl">
     <div class="text-center mb-24">
-      <div class="reveal inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full glass text-xs text-white/60">
-        <span class="w-1 h-1 rounded-full bg-aurora-cyan"></span>
-        使用场景
-      </div>
+      <p class="section-eyebrow reveal">使用场景</p>
       <h2 class="reveal text-4xl md:text-5xl font-bold tracking-tight text-gradient">
-        它现在能跑什么
+        用流程处理那些反复发生的工作
       </h2>
     </div>
 
@@ -69,7 +66,7 @@ const glowMap: Record<string, string> = {
         <div class={`grid md:grid-cols-2 gap-12 items-center ${i % 2 === 1 ? 'md:grid-flow-dense' : ''}`}>
           <!-- 文字块 -->
           <div class={`reveal ${i % 2 === 1 ? 'md:col-start-2' : ''}`}>
-            <div class={`inline-flex items-center gap-2 px-3 py-1 mb-5 rounded-full border text-xs font-medium ${tintMap[s.tint]}`}>
+            <div class="scenario-tag">
               {s.tag}
             </div>
             <h3 class="text-3xl md:text-4xl font-semibold mb-4 text-gradient leading-tight">
@@ -82,16 +79,10 @@ const glowMap: Record<string, string> = {
 
           <!-- 代码卡片 -->
           <div class={`reveal-scale relative ${i % 2 === 1 ? 'md:col-start-1 md:row-start-1' : ''}`}>
-            <div class={`absolute inset-0 blur-3xl ${glowMap[s.tint]} rounded-full`}></div>
             <div class="glass-strong relative overflow-hidden">
               <div class="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.06]">
-                <div class="flex items-center gap-1.5">
-                  <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f57]/60"></span>
-                  <span class="w-2.5 h-2.5 rounded-full bg-[#febc2e]/60"></span>
-                  <span class="w-2.5 h-2.5 rounded-full bg-[#28c840]/60"></span>
-                </div>
-                <div class="text-[10px] text-white/30 font-mono">looper · terminal</div>
-                <div class="w-14"></div>
+                <div class="text-[10px] text-white/45 font-mono">LOOPER / RUN LOG</div>
+                <div class="text-[10px] text-white/30 font-mono">RESULT</div>
               </div>
               <div class="p-5 font-mono text-xs space-y-2 min-h-[180px]">
                 {s.codeLines.map((line) => (

@@ -7,8 +7,8 @@ interface Props {
 }
 
 const {
-  title = 'Looper — 本地跑的工作流桌面应用',
-  description = '拆解与执行交给 loop agent,你只管拍板。聊天里说一句,它通过本机 Claude Code 挑 Skill、算图、跑到底。',
+  title = 'Looper — 把 AI 任务跑成看得见的流程',
+  description = 'Looper 是本地运行的 AI 工作流桌面应用：在对话中说明目标，用可编辑流程组织执行，并在关键操作前保持控制。',
 } = Astro.props;
 ---
 
@@ -37,40 +37,28 @@ const {
 
     <title>{title}</title>
   </head>
-  <body class="relative min-h-screen">
-    <!-- 全局背景装饰:大光晕 + 网格 -->
-    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
-      <div class="glow-orb w-[600px] h-[600px] bg-aurora-violet/20 -top-40 -left-40 animate-float-slow"></div>
-      <div class="glow-orb w-[500px] h-[500px] bg-aurora-cyan/15 top-1/3 -right-40 animate-float-med"></div>
-      <div class="glow-orb w-[700px] h-[700px] bg-aurora-pink/10 bottom-0 left-1/4 animate-float-slow"></div>
-      <div class="absolute inset-0 bg-grid opacity-40 [mask-image:radial-gradient(ellipse_at_center,black_20%,transparent_80%)]"></div>
-    </div>
-
-    <!-- 鼠标跟随光斑 -->
-    <div
-      id="cursor-glow"
-      class="fixed w-[500px] h-[500px] rounded-full pointer-events-none -z-10 opacity-0 transition-opacity duration-500"
-      style="background: radial-gradient(circle, rgba(124,92,255,0.15) 0%, transparent 60%); transform: translate(-50%, -50%);"
-    >
-    </div>
+  <body class="black-theme min-h-screen">
 
     <slot />
 
     <script>
       import Lenis from 'lenis';
 
-      // 平滑滚动
-      const lenis = new Lenis({
-        duration: 1.2,
-        easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothWheel: true,
-      });
-
-      function raf(time: number) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
+      // 平滑滚动：只在桌面端接管滚轮，触屏设备保留系统原生滚动手感。
+      // 原生 smooth 与 Lenis 同时接管锚点会产生明显的“二次缓动”，所以由 Lenis 统一处理。
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+      const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
+      const useSmoothScroll = finePointer.matches && !reduceMotion.matches;
+      if (useSmoothScroll) {
+        new Lenis({
+            // 使用固定插值让连续滚轮输入更均匀，并交由 Lenis 管理动画帧。
+            lerp: 0.085,
+            smoothWheel: true,
+            wheelMultiplier: 0.82,
+            anchors: true,
+            autoRaf: true,
+        });
       }
-      requestAnimationFrame(raf);
 
       // 滚动进入观察器 —— reveal / reveal-scale / stagger 通用
       const observer = new IntersectionObserver(
@@ -89,46 +77,6 @@ const {
         observer.observe(el);
       });
 
-      // 鼠标跟随光斑
-      const cursor = document.getElementById('cursor-glow');
-      if (cursor && window.matchMedia('(hover: hover)').matches) {
-        let mouseX = 0,
-          mouseY = 0;
-        let currentX = 0,
-          currentY = 0;
-
-        document.addEventListener('mousemove', (e) => {
-          mouseX = e.clientX;
-          mouseY = e.clientY;
-          cursor.style.opacity = '1';
-        });
-
-        document.addEventListener('mouseleave', () => {
-          cursor.style.opacity = '0';
-        });
-
-        function animateCursor() {
-          currentX += (mouseX - currentX) * 0.1;
-          currentY += (mouseY - currentY) * 0.1;
-          if (cursor) {
-            cursor.style.left = `${currentX}px`;
-            cursor.style.top = `${currentY}px`;
-          }
-          requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-      }
-
-      // 视差:让带 data-parallax 的元素随滚动位移
-      const parallaxItems = document.querySelectorAll<HTMLElement>('[data-parallax]');
-      if (parallaxItems.length > 0) {
-        lenis.on('scroll', ({ scroll }: { scroll: number }) => {
-          parallaxItems.forEach((el) => {
-            const speed = parseFloat(el.dataset.parallax || '0.3');
-            el.style.transform = `translateY(${scroll * speed * -0.15}px)`;
-          });
-        });
-      }
     </script>
   </body>
 </html>

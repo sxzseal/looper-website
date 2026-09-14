@@ -2,28 +2,28 @@
 // FAQ 手风琴
 const faqs = [
   {
-    q: '要自己配 API Key 吗?',
-    a: '不需要。Looper 直接 fork 本机的 claude CLI 子进程,用的就是你现在终端里那份 Claude Code 会话。你终端能跑,Looper 就能跑。',
+    q: 'Looper 是聊天工具，还是工作流工具？',
+    a: '两者结合使用。你可以在对话中说明目标，也可以把任务沉淀为工作流；画布负责组织节点与依赖，运行记录负责保留过程与结果。',
   },
   {
-    q: '数据会上传到云端吗?',
-    a: '工作流、执行历史、Skill 都放在本机。只有当你自己调用需要联网的 Skill (比如 web-search) 时,才会走那个服务的网络请求。',
+    q: '数据会上传到云端吗？',
+    a: 'Looper 的工作流、运行记录和项目上下文由本机管理。使用云端模型或联网工具时，相关请求会发送给你选择的服务商或目标服务；请按自己的数据要求配置服务与权限。',
   },
   {
-    q: '和直接用 Claude Code CLI 有什么区别?',
-    a: 'CLI 适合单次会话,聊完就散了。Looper 把"可复用的流水线"当成主角:DAG 编辑、执行历史回放、Skill 复用、聊天式触发。工作流是文件,能进 git、diff、分享。',
+    q: '和直接使用 AI 编程助手有什么区别？',
+    a: '一次对话适合即时协作；Looper 更适合把多步、可重复的任务组织起来。它提供工作流画布、技能管理、运行看板和权限模式，让执行过程更容易检查与复用。',
   },
   {
-    q: '工作流长什么样?',
-    a: '每条工作流是本机的一个文件,里面是 DAG 结构 + Skill 引用 + 元数据。放进 git 仓库,同事拉下来就能跑,不用重复配置。',
+    q: '工作流是什么样的？',
+    a: '一条工作流由节点、连线、变量与触发配置组成。你可以在画布中编辑它，保存到工作流库，也可以通过导入导出在不同环境之间迁移。',
   },
   {
-    q: '支持哪些系统?',
-    a: '当前提供 macOS (Apple Silicon 主推,Intel 兜底) 和 Windows 10+ x64。Linux 正在打包。',
+    q: '支持哪些系统？',
+    a: '当前提供 macOS（Apple Silicon 与 Intel）和 Windows x64 构建。Linux 版本仍在规划中。',
   },
   {
-    q: 'Skill 怎么加?',
-    a: '任何符合 Claude Code Skill 规范的目录都能被识别。放到 ~/.claude/skills/,重启后在 Skill 发现页就能看到,拖到画布上就能用。',
+    q: 'Skill 怎么添加？',
+    a: '在「技能」页创建、编辑或安装 Skill；它们会由 Looper 的本地技能目录管理，并可在工作流节点中引用。',
   },
 ];
 ---
@@ -31,10 +31,7 @@ const faqs = [
 <section id="faq" class="relative py-32 px-4">
   <div class="mx-auto max-w-3xl">
     <div class="text-center mb-16">
-      <div class="reveal inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full glass text-xs text-white/60">
-        <span class="w-1 h-1 rounded-full bg-aurora-pink"></span>
-        常见问题
-      </div>
+      <p class="section-eyebrow reveal">常见问题</p>
       <h2 class="reveal text-4xl md:text-5xl font-bold tracking-tight text-gradient">
         你可能会问
       </h2>
@@ -42,20 +39,64 @@ const faqs = [
 
     <div class="stagger space-y-3">
       {faqs.map((f) => (
-        <details class="group glass hover:border-white/20 transition-colors">
-          <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none">
+        <details class="faq-item group glass hover:border-white/20 transition-colors" data-faq-item>
+          <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none" aria-expanded="false">
             <span class="font-medium text-white/90 group-hover:text-white transition-colors">
               {f.q}
             </span>
-            <span class="shrink-0 w-8 h-8 rounded-full bg-white/[0.06] border border-white/10 flex items-center justify-center transition-transform group-open:rotate-45">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            <span class="faq-toggle" aria-hidden="true">
+              <span class="faq-toggle-label faq-toggle-label-expand">展开</span>
+              <span class="faq-toggle-label faq-toggle-label-collapse">收起</span>
             </span>
           </summary>
-          <div class="px-6 pb-5 -mt-1 text-white/60 leading-relaxed text-sm">
-            {f.a}
+          <div class="faq-answer">
+            <div class="px-6 pb-5 -mt-1 text-white/60 leading-relaxed text-sm">
+              {f.a}
+            </div>
           </div>
         </details>
       ))}
     </div>
   </div>
 </section>
+
+<script>
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  document.querySelectorAll<HTMLDetailsElement>('[data-faq-item]').forEach((item) => {
+    const summary = item.querySelector<HTMLElement>('summary');
+    if (!summary) return;
+
+    let animation: Animation | undefined;
+
+    summary.addEventListener('click', (event) => {
+      event.preventDefault();
+      if (animation) return;
+
+      const isOpening = !item.open;
+      summary.setAttribute('aria-expanded', String(isOpening));
+
+      if (reduceMotion) {
+        item.open = isOpening;
+        return;
+      }
+
+      const startHeight = item.offsetHeight;
+      if (isOpening) item.open = true;
+      const endHeight = isOpening ? item.scrollHeight : summary.offsetHeight;
+
+      item.style.overflow = 'hidden';
+      animation = item.animate(
+        { height: [`${startHeight}px`, `${endHeight}px`] },
+        { duration: 320, easing: 'cubic-bezier(.22, 1, .36, 1)' },
+      );
+
+      animation.onfinish = () => {
+        if (!isOpening) item.open = false;
+        item.style.height = '';
+        item.style.overflow = '';
+        animation = undefined;
+      };
+    });
+  });
+</script>

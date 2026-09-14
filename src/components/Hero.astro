@@ -1,168 +1,26 @@
----
-// Hero 区:大标题 + 副标题 + 双 CTA + 玻璃态窗口截图占位
----
-
-<section class="relative pt-40 pb-24 md:pt-52 md:pb-40 px-4 overflow-hidden">
-  <!-- 局部辅助光晕 -->
-  <div class="glow-orb w-[900px] h-[900px] bg-aurora-violet/25 top-0 left-1/2 -translate-x-1/2 animate-pulse-glow"></div>
-
-  <div class="relative mx-auto max-w-5xl text-center">
-    <!-- 顶部标签 -->
-    <div class="reveal inline-flex items-center gap-2 px-3 py-1 mb-6 rounded-full glass text-xs text-white/70">
-      <span class="w-1.5 h-1.5 rounded-full bg-aurora-cyan animate-pulse"></span>
-      <span>v0.1 · 私有测试中</span>
-      <span class="text-white/30">·</span>
-      <span>本地运行 · 无需 API Key</span>
-    </div>
-
-    <!-- 主标题 -->
-    <h1 class="reveal font-bold tracking-tight text-5xl md:text-7xl lg:text-8xl leading-[1.05]">
-      <span class="text-gradient">拆解与执行交给它</span><br />
-      <span class="text-gradient-aurora">你只管拍板</span>
-    </h1>
-
-    <!-- 副标题 -->
-    <p class="reveal mt-8 text-lg md:text-xl text-white/60 max-w-2xl mx-auto leading-relaxed">
-      Looper 是本地跑的 AI 工作流桌面应用。聊天里说一句"跑这个",loop agent 通过本机的
-      <span class="text-white/90 font-medium">Claude Code</span>
-      挑 Skill、算图、执行到底。工作流是文件,进 git、可 diff、可回放。
-    </p>
-
-    <!-- CTA 组 -->
-    <div class="reveal mt-10 flex flex-wrap items-center justify-center gap-3">
-      <a href="#download" class="btn-primary group">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-        下载测试版
-        <svg class="transition-transform group-hover:translate-x-0.5" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-      </a>
-      <a href="#showcase" class="btn-ghost group">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="5 3 19 12 5 21 5 3"/></svg>
-        看它能跑什么
-      </a>
-    </div>
-
-    <!-- 平台徽章 -->
-    <div class="reveal mt-6 flex items-center justify-center gap-4 text-xs text-white/40">
-      <span class="flex items-center gap-1.5">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
-        macOS 11+
-      </span>
-      <span class="w-px h-3 bg-white/10"></span>
-      <span class="flex items-center gap-1.5">
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M3 5.55L11 4.4v7.55H3zm0 12.9L11 19.6V12.05H3zM12 19.75L22 21.15V12.05H12zM12 4.25v7.7h10V2.85z"/></svg>
-        Windows 10+
-      </span>
-    </div>
-  </div>
-
-  <!-- 玻璃态窗口截图占位 -->
-  <div class="reveal-scale mt-20 md:mt-28 mx-auto max-w-6xl" data-parallax="0.3">
-    <div class="relative">
-      <!-- 底部光晕 -->
-      <div class="absolute inset-x-10 -bottom-20 h-40 bg-aurora-violet/40 blur-3xl rounded-full"></div>
-      <div class="absolute inset-x-32 -bottom-10 h-20 bg-aurora-cyan/30 blur-3xl rounded-full"></div>
-
-      <!-- 窗口 -->
-      <div class="glass-strong border-gradient overflow-hidden">
-        <!-- macOS 标题栏 -->
-        <div class="flex items-center justify-between px-4 py-3 border-b border-white/[0.06]">
-          <div class="flex items-center gap-1.5">
-            <span class="w-3 h-3 rounded-full bg-[#ff5f57]"></span>
-            <span class="w-3 h-3 rounded-full bg-[#febc2e]"></span>
-            <span class="w-3 h-3 rounded-full bg-[#28c840]"></span>
-          </div>
-          <div class="text-xs text-white/40 font-mono">looper — canvas / daily-report.flow</div>
-          <div class="w-16"></div>
+<section class="gallery-hero relative min-h-[calc(100vh-72px)] overflow-hidden">
+  <div class="gallery-hero-stage">
+    <div class="hero-content">
+      <div class="hero-copy">
+        <div class="hero-kicker">LOCAL-FIRST WORKFLOW DESKTOP</div>
+        <h1>让复杂任务，<br /><span>跑成看得见的流程。</span></h1>
+        <p>
+          在桌面上把目标交给 Agent。Looper 用本地运行时串联技能、工具和项目上下文；
+          每一步都看得见，关键动作由你决定是否放行。
+        </p>
+        <div class="hero-actions">
+          <a href="#download" class="btn-primary">下载 Looper</a>
+          <a href="#showcase" class="btn-ghost">了解工作方式</a>
         </div>
-
-        <!-- 内容占位:DAG 画布模拟 -->
-        <div class="relative aspect-[16/10] bg-ink-900/60 overflow-hidden">
-          <!-- 画布网格 -->
-          <div class="absolute inset-0 bg-grid opacity-30"></div>
-
-          <!-- 左侧栏 -->
-          <div class="absolute left-0 top-0 bottom-0 w-52 bg-ink-800/40 border-r border-white/[0.06] p-3 space-y-2">
-            <div class="text-[10px] uppercase tracking-widest text-white/30 mb-2">Skills</div>
-            <div class="glass px-2.5 py-2 flex items-center gap-2 text-xs">
-              <div class="w-1.5 h-1.5 rounded-full bg-aurora-violet"></div>
-              <span class="text-white/70">web-search</span>
-            </div>
-            <div class="glass px-2.5 py-2 flex items-center gap-2 text-xs">
-              <div class="w-1.5 h-1.5 rounded-full bg-aurora-cyan"></div>
-              <span class="text-white/70">code-review</span>
-            </div>
-            <div class="glass px-2.5 py-2 flex items-center gap-2 text-xs">
-              <div class="w-1.5 h-1.5 rounded-full bg-aurora-pink"></div>
-              <span class="text-white/70">summarize</span>
-            </div>
-            <div class="glass px-2.5 py-2 flex items-center gap-2 text-xs opacity-50">
-              <div class="w-1.5 h-1.5 rounded-full bg-aurora-amber"></div>
-              <span class="text-white/70">daily-report</span>
-            </div>
-          </div>
-
-          <!-- 主画布 DAG -->
-          <div class="absolute inset-0 pl-52 flex items-center justify-center">
-            <svg class="w-full h-full max-w-2xl" viewBox="0 0 500 300" fill="none">
-              <!-- 连线 -->
-              <path d="M100 150 Q 175 150, 220 90" stroke="url(#line1)" stroke-width="2" fill="none" stroke-dasharray="4 4">
-                <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="1.5s" repeatCount="indefinite"/>
-              </path>
-              <path d="M100 150 Q 175 150, 220 210" stroke="url(#line2)" stroke-width="2" fill="none" stroke-dasharray="4 4">
-                <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="1.5s" repeatCount="indefinite"/>
-              </path>
-              <path d="M320 90 Q 375 150, 420 150" stroke="url(#line3)" stroke-width="2" fill="none" stroke-dasharray="4 4">
-                <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="1.5s" repeatCount="indefinite"/>
-              </path>
-              <path d="M320 210 Q 375 150, 420 150" stroke="url(#line4)" stroke-width="2" fill="none" stroke-dasharray="4 4">
-                <animate attributeName="stroke-dashoffset" from="0" to="-16" dur="1.5s" repeatCount="indefinite"/>
-              </path>
-
-              <defs>
-                <linearGradient id="line1" x1="100" y1="150" x2="220" y2="90"><stop stop-color="#7c5cff" stop-opacity=".2"/><stop offset="1" stop-color="#7c5cff" stop-opacity=".8"/></linearGradient>
-                <linearGradient id="line2" x1="100" y1="150" x2="220" y2="210"><stop stop-color="#7c5cff" stop-opacity=".2"/><stop offset="1" stop-color="#5cf0ff" stop-opacity=".8"/></linearGradient>
-                <linearGradient id="line3" x1="320" y1="90" x2="420" y2="150"><stop stop-color="#7c5cff" stop-opacity=".8"/><stop offset="1" stop-color="#ff5cd0" stop-opacity=".8"/></linearGradient>
-                <linearGradient id="line4" x1="320" y1="210" x2="420" y2="150"><stop stop-color="#5cf0ff" stop-opacity=".8"/><stop offset="1" stop-color="#ff5cd0" stop-opacity=".8"/></linearGradient>
-              </defs>
-
-              <!-- 节点 -->
-              <g>
-                <rect x="40" y="130" width="120" height="40" rx="10" fill="rgba(20,20,32,0.9)" stroke="rgba(124,92,255,0.5)"/>
-                <circle cx="60" cy="150" r="4" fill="#7c5cff"/>
-                <text x="75" y="155" fill="white" font-size="12" font-family="JetBrains Mono">trigger</text>
-
-                <rect x="220" y="70" width="100" height="40" rx="10" fill="rgba(20,20,32,0.9)" stroke="rgba(92,240,255,0.5)"/>
-                <circle cx="238" cy="90" r="4" fill="#5cf0ff"/>
-                <text x="250" y="95" fill="white" font-size="11" font-family="JetBrains Mono">search</text>
-
-                <rect x="220" y="190" width="100" height="40" rx="10" fill="rgba(20,20,32,0.9)" stroke="rgba(255,92,208,0.5)"/>
-                <circle cx="238" cy="210" r="4" fill="#ff5cd0"/>
-                <text x="250" y="215" fill="white" font-size="11" font-family="JetBrains Mono">review</text>
-
-                <rect x="360" y="130" width="120" height="40" rx="10" fill="rgba(20,20,32,0.9)" stroke="rgba(255,177,92,0.5)"/>
-                <circle cx="378" cy="150" r="4" fill="#ffb15c">
-                  <animate attributeName="r" values="4;6;4" dur="1.5s" repeatCount="indefinite"/>
-                </circle>
-                <text x="390" y="155" fill="white" font-size="12" font-family="JetBrains Mono">output</text>
-              </g>
-            </svg>
-          </div>
-
-          <!-- 右下角状态卡 -->
-          <div class="absolute bottom-4 right-4 glass px-3 py-2 flex items-center gap-2 text-xs">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
-            <span class="text-white/70 font-mono">running · 3/4 steps</span>
-          </div>
+        <div class="hero-proof" aria-label="产品优势">
+          <span>本地运行</span>
+          <span>执行有记录</span>
+          <span>流程可编辑</span>
         </div>
+        <div class="hero-meta"><span>macOS · Windows</span><span class="hero-meta-separator">/</span><span>本地运行 · 模型可配</span></div>
       </div>
     </div>
-  </div>
 
-  <!-- 向下滚动提示 -->
-  <div class="reveal mt-24 flex justify-center">
-    <div class="flex flex-col items-center gap-2 text-xs text-white/30">
-      <span>向下看看</span>
-      <div class="w-px h-8 bg-gradient-to-b from-white/30 to-transparent animate-pulse"></div>
-    </div>
+    <div class="hero-scroll-hint"><span class="hero-scroll-line"></span> SCROLL TO EXPLORE</div>
   </div>
 </section>

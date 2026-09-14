@@ -2,33 +2,34 @@
 // 顶部固定导航栏
 ---
 
-<header class="fixed top-0 inset-x-0 z-50 pt-4">
-  <div class="mx-auto max-w-6xl px-4">
-    <nav class="glass flex items-center justify-between px-4 py-2.5">
-      <a href="#" class="flex items-center gap-2.5 group">
-        <img
-          src="/logo.png"
-          alt="Looper"
-          width="32"
-          height="32"
-          class="w-8 h-8 object-contain invert transition-transform group-hover:scale-105"
-        />
-        <span class="font-semibold tracking-tight">Looper</span>
+<header class="site-header fixed inset-x-0 top-0 z-50 h-[64px]">
+  <div class="mx-auto flex h-full w-full max-w-7xl items-center px-5 sm:px-8">
+    <nav class="site-header-nav relative flex w-full items-center justify-between gap-4" aria-label="主导航">
+      <a href="#" class="site-brand group flex shrink-0 items-center gap-2.5" aria-label="Looper 首页">
+        <span class="site-brand-mark">
+          <img
+            src="/logo.png"
+            alt=""
+            width="32"
+            height="32"
+            class="h-7 w-7 object-contain invert transition-transform duration-300 group-hover:scale-105 sm:h-8 sm:w-8"
+          />
+        </span>
+        <span class="text-sm font-semibold tracking-tight text-white">Looper</span>
       </a>
 
-      <ul class="hidden md:flex items-center gap-7 text-sm text-white/70">
-        <li><a href="#features" class="hover:text-white transition-colors">功能</a></li>
-        <li><a href="#showcase" class="hover:text-white transition-colors">场景</a></li>
-        <li><a href="#changelog" class="hover:text-white transition-colors">更新</a></li>
-        <li><a href="#faq" class="hover:text-white transition-colors">FAQ</a></li>
+      <ul class="site-nav-menu absolute left-1/2 hidden -translate-x-1/2 items-center gap-2 text-sm text-white/60 md:flex">
+        <li><a href="#features" class="site-nav-link">功能</a></li>
+        <li><a href="#showcase" class="site-nav-link">场景</a></li>
+        <li><a href="#changelog" class="site-nav-link">更新</a></li>
+        <li><a href="#faq" class="site-nav-link">FAQ</a></li>
       </ul>
 
       <a
         href="#download"
-        class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-lg bg-white text-ink-950 text-sm font-medium hover:bg-white/90 transition-colors"
+        class="site-download inline-flex shrink-0 items-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-semibold text-ink-950 transition-all duration-300 sm:px-4"
       >
-        下载
-        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        下载 Looper
       </a>
     </nav>
   </div>

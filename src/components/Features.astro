@@ -1,125 +1,72 @@
 ---
-// Features:Bento 布局 4 个核心卖点
+// 核心特性：用可读的产品界面代替纯文字卡片。
 ---
 
-<section id="features" class="relative py-32 px-4">
-  <div class="mx-auto max-w-6xl">
-    <!-- 区块头 -->
-    <div class="text-center mb-20">
-      <div class="reveal inline-flex items-center gap-2 px-3 py-1 mb-4 rounded-full glass text-xs text-white/60">
-        <span class="w-1 h-1 rounded-full bg-aurora-violet"></span>
-        核心特性
+<section id="features" class="features-section">
+  <div class="features-shell">
+    <header class="features-heading reveal">
+      <div>
+        <p class="section-eyebrow">核心特性 <span>01 — 04</span></p>
+        <h2>把模糊的想法，<br /><em>变成可掌控的执行。</em></h2>
       </div>
-      <h2 class="reveal text-4xl md:text-5xl font-bold tracking-tight text-gradient">
-        工作流是产物,不是一次性会话
-      </h2>
-      <p class="reveal mt-4 text-white/50 max-w-2xl mx-auto">
-        不是又一个聊天窗。每条流水线都是可 diff、可分享、可回放的文件。
-      </p>
-    </div>
+      <p class="features-intro">Looper 把对话、工作流与运行权限放在同一条清晰的路径上。每一步看得见，也始终由你决定下一步。</p>
+    </header>
 
-    <!-- Bento Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-6 gap-4 md:gap-5">
-      <!-- 卡片 1:自然语言触发(大卡) -->
-      <div class="reveal-scale md:col-span-4 glass p-8 group relative overflow-hidden hover:border-white/20 transition-colors">
-        <div class="glow-orb w-64 h-64 bg-aurora-violet/20 -top-20 -right-20 group-hover:bg-aurora-violet/40 transition-colors"></div>
-
-        <div class="relative">
-          <div class="w-10 h-10 rounded-xl bg-aurora-violet/20 border border-aurora-violet/30 flex items-center justify-center mb-6">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#7c5cff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          </div>
-          <h3 class="text-2xl font-semibold mb-3">聊天里说一句就够了</h3>
-          <p class="text-white/60 leading-relaxed mb-6">
-            不用先去挑 Skill 或搭图。你把要做的事讲清楚,loop agent 决定用什么、怎么排、跑到哪一步。
-          </p>
-
-          <!-- 迷你聊天演示 -->
-          <div class="glass px-4 py-3 space-y-2 font-mono text-xs">
-            <div class="flex gap-2">
-              <span class="text-aurora-cyan shrink-0">you ›</span>
-              <span class="text-white/80">帮我把最近 3 天的 PR 汇总一份日报</span>
-            </div>
-            <div class="flex gap-2">
-              <span class="text-aurora-violet shrink-0">loop ›</span>
-              <span class="text-white/50">
-                <span class="text-white/80">已找到 skill: daily-report</span>
-                <span class="opacity-40">· 编排 4 个节点 · </span>
-                <span class="text-emerald-400">开始执行</span>
-                <span class="inline-block w-1 h-3 bg-emerald-400 ml-0.5 animate-pulse align-middle"></span>
-              </span>
-            </div>
-          </div>
+    <div class="feature-bento">
+      <article class="feature-card feature-command reveal-scale">
+        <div class="feature-card-top">
+          <div><span class="feature-kicker"><b>01</b> 从意图开始</span><h3>一句话，先生成<br />可编辑的工作流</h3></div>
+          <span class="feature-status"><i></i> Draft ready</span>
         </div>
-      </div>
-
-      <!-- 卡片 2:本地运行 -->
-      <div class="reveal-scale md:col-span-2 glass p-8 group relative overflow-hidden hover:border-white/20 transition-colors">
-        <div class="glow-orb w-40 h-40 bg-aurora-cyan/20 -bottom-10 -right-10 group-hover:bg-aurora-cyan/40 transition-colors"></div>
-        <div class="relative">
-          <div class="w-10 h-10 rounded-xl bg-aurora-cyan/20 border border-aurora-cyan/30 flex items-center justify-center mb-6">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5cf0ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 17V7a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10"/><line x1="2" y1="21" x2="22" y2="21"/><line x1="10" y1="9" x2="14" y2="9"/></svg>
-          </div>
-          <h3 class="text-xl font-semibold mb-3">跑在你自己电脑上</h3>
-          <p class="text-white/60 leading-relaxed text-sm">
-            Electron 主进程直接 fork 本地 <code class="text-aurora-cyan font-mono text-xs">claude</code> 子进程。<br/>
-            <span class="text-white/40">没有中间服务器,也不占用 API Key 额度。</span>
-          </p>
-          <div class="mt-6 flex items-center gap-2 text-xs text-white/40">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
-            <span class="font-mono">local-first · offline-ready</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- 卡片 3:DAG 一等公民 -->
-      <div class="reveal-scale md:col-span-3 glass p-8 group relative overflow-hidden hover:border-white/20 transition-colors">
-        <div class="glow-orb w-52 h-52 bg-aurora-pink/15 top-10 -left-10 group-hover:bg-aurora-pink/30 transition-colors"></div>
-        <div class="relative">
-          <div class="w-10 h-10 rounded-xl bg-aurora-pink/20 border border-aurora-pink/30 flex items-center justify-center mb-6">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ff5cd0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><line x1="20" y1="4" x2="8.12" y2="15.88"/><line x1="14.47" y1="14.48" x2="20" y2="20"/><line x1="8.12" y1="8.12" x2="12" y2="12"/></svg>
-          </div>
-          <h3 class="text-xl font-semibold mb-3">DAG 而不是黑盒</h3>
-          <p class="text-white/60 leading-relaxed text-sm mb-4">
-            画布上看得见每一步。<span class="text-white/80">xyflow 编辑 + Zod 校验 + 物化执行器</span>,想改哪个节点直接改文件。
-          </p>
-
-          <div class="glass px-4 py-3 font-mono text-[11px] text-white/70 leading-relaxed">
-            <div><span class="text-aurora-pink">flow</span> <span class="text-white/40">daily-report</span> {</div>
-            <div class="pl-3"><span class="text-aurora-violet">nodes</span>: 4, <span class="text-aurora-violet">edges</span>: 3</div>
-            <div class="pl-3"><span class="text-aurora-cyan">schema</span>: <span class="text-emerald-400">valid ✓</span></div>
-            <div>}</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 卡片 4:三层组件契约 -->
-      <div class="reveal-scale md:col-span-3 glass p-8 group relative overflow-hidden hover:border-white/20 transition-colors">
-        <div class="glow-orb w-52 h-52 bg-aurora-amber/15 -bottom-10 right-10 group-hover:bg-aurora-amber/30 transition-colors"></div>
-        <div class="relative">
-          <div class="w-10 h-10 rounded-xl bg-aurora-amber/20 border border-aurora-amber/30 flex items-center justify-center mb-6">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ffb15c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2 2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
-          </div>
-          <h3 class="text-xl font-semibold mb-3">三种执行器,按需选</h3>
-          <p class="text-white/60 leading-relaxed text-sm mb-4">
-            <code class="text-aurora-cyan font-mono text-xs">agent</code> 单步推理 · <code class="text-aurora-cyan font-mono text-xs">claudecode</code> 编码密集型 · <code class="text-aurora-cyan font-mono text-xs">loop</code> 多轮迭代。用途明确,不用挑模型也不用调参。
-          </p>
-
-          <div class="space-y-1.5">
-            <div class="flex items-center gap-3 text-xs">
-              <span class="w-16 h-6 rounded-md bg-aurora-violet/20 border border-aurora-violet/30 flex items-center justify-center text-aurora-violet font-mono">agent</span>
-              <span class="text-white/60">短任务、单次决策</span>
-            </div>
-            <div class="flex items-center gap-3 text-xs">
-              <span class="w-16 h-6 rounded-md bg-aurora-cyan/20 border border-aurora-cyan/30 flex items-center justify-center text-aurora-cyan font-mono">code</span>
-              <span class="text-white/60">读写代码、跑测试</span>
-            </div>
-            <div class="flex items-center gap-3 text-xs">
-              <span class="w-16 h-6 rounded-md bg-aurora-pink/20 border border-aurora-pink/30 flex items-center justify-center text-aurora-pink font-mono">loop</span>
-              <span class="text-white/60">反复推敲、直到收敛</span>
+        <div class="command-demo" aria-label="工作流草稿示例">
+          <div class="command-window-bar"><span></span><span></span><span></span><p>new-workflow.loop</p><small>⌘ K</small></div>
+          <div class="command-prompt"><span class="command-avatar">你</span><p>汇总最近 3 天的 PR，整理成今日团队日报</p><span class="command-send">↵</span></div>
+          <div class="workflow-preview">
+            <div class="workflow-preview-head"><span>LOOPER 已为你搭好草稿</span><span>4 NODES</span></div>
+            <div class="feature-workflow-track">
+              <div class="feature-workflow-node active"><i>01</i><span>读取 PR</span></div><div class="feature-workflow-line"></div>
+              <div class="feature-workflow-node"><i>02</i><span>提炼变更</span></div><div class="feature-workflow-line"></div>
+              <div class="feature-workflow-node"><i>03</i><span>生成日报</span></div><div class="feature-workflow-line faint"></div>
+              <div class="feature-workflow-node pending"><i>04</i><span>发送确认</span></div>
             </div>
           </div>
+          <div class="command-footer"><span>已保存为草稿</span><button type="button">检查并发布 <b>→</b></button></div>
         </div>
-      </div>
+      </article>
+
+      <article class="feature-card feature-control reveal-scale">
+        <div class="feature-card-top"><div><span class="feature-kicker"><b>02</b> 边界清晰</span><h3>权限不藏在<br />黑盒里</h3></div><span class="control-shield">✦</span></div>
+        <p class="feature-description">运行始终在本地。你可以为每一个动作保留确认，也可以按工作流设置自动执行范围。</p>
+        <div class="permission-list">
+          <div><span class="permission-icon folder">⌁</span><p><b>项目文件</b><small>仅本次工作区</small></p><span class="permission-state">允许</span></div>
+          <div><span class="permission-icon terminal">›_</span><p><b>Shell 命令</b><small>每次运行前确认</small></p><span class="permission-state review">询问</span></div>
+          <div><span class="permission-icon network">↗</span><p><b>外部服务</b><small>按你的 Provider 设置</small></p><span class="permission-state">允许</span></div>
+        </div>
+      </article>
+
+      <article class="feature-card feature-canvas reveal-scale">
+        <div class="feature-card-top"><div><span class="feature-kicker"><b>03</b> 过程可见</span><h3>像搭积木一样<br />组织每一步</h3></div><span class="canvas-label">CANVAS</span></div>
+        <p class="feature-description">顺序、并行、循环和条件分支，都能在画布上直接看懂、调整和复用。</p>
+        <div class="canvas-map" aria-hidden="true">
+          <svg viewBox="0 0 400 128" preserveAspectRatio="none">
+            <path d="M52 64 H140 C156 64 156 30 176 30 H208" />
+            <path d="M52 64 H140 C156 64 156 98 176 98 H208" />
+            <path d="M208 30 H326 V64 H350" />
+            <path d="M208 98 H326 V64" />
+          </svg>
+          <div class="map-node map-start">输入</div><div class="map-node map-agent">Agent<br /><small>分析</small></div><div class="map-node map-loop">Loop<br /><small>校验</small></div><div class="map-node map-output">输出</div>
+        </div>
+        <div class="canvas-footer"><span><i></i> 结构校验通过</span><span>保存为模板 ↗</span></div>
+      </article>
+
+      <article class="feature-card feature-modes reveal-scale">
+        <div class="feature-card-top"><div><span class="feature-kicker"><b>04</b> 各司其职</span><h3>为任务选择<br />合适的执行方式</h3></div><span class="modes-count">03<br /><small>modes</small></span></div>
+        <div class="mode-stack">
+          <div class="mode-row agent"><span class="mode-dot"></span><b>Agent</b><p>推理、对话与工具调用</p><i>↗</i></div>
+          <div class="mode-row shell"><span class="mode-dot"></span><b>Shell</b><p>本地文件、代码与命令</p><i>↗</i></div>
+          <div class="mode-row loop"><span class="mode-dot"></span><b>Loop</b><p>按标准反复评估改进</p><i>↗</i></div>
+        </div>
+      </article>
     </div>
   </div>
 </section>
