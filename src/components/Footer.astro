@@ -1,17 +1,42 @@
----
-const year = new Date().getFullYear();
----
-
 <footer class="site-footer">
-  <div class="site-footer-inner">
-    <div class="site-footer-brand">
-      <div class="site-footer-logo">
-        <img src="/logo.png" alt="Looper" width="24" height="24" />
-        <span>Looper</span>
-      </div>
-      <p>本地运行的 AI 工作流桌面应用。把多步任务从一次对话，沉淀为可编辑、可追踪的执行流程。</p>
-    </div>
-
-    <div class="site-footer-copyright">© {year} Looper</div>
+  <div class="shell footer-main">
+    <a class="brand" href="#top" aria-label="Looper 首页">
+      <img src="/logo-mark.svg" width="32" height="32" alt="" />
+      <span>Looper</span>
+    </a>
+    <p>让想法前进一步。</p>
+    <nav aria-label="页脚导航">
+      <a href="#features">产品</a>
+      <a href="#changelog">更新</a>
+      <a href="#faq">常见问题</a>
+      <a href="#download">下载 ↗</a>
+    </nav>
   </div>
 </footer>
+
+<a class="back-to-top" href="#top" aria-label="回到顶部" title="回到顶部">
+  <svg
+    width="20"
+    height="20"
+    viewBox="0 0 24 24"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path
+      d="m6 12 6-6 6 6M12 6v13"
+      stroke="currentColor"
+      stroke-width="1.7"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    />
+  </svg>
+</a>
+
+<script>
+  const backToTop = document.querySelector<HTMLAnchorElement>('.back-to-top');
+  const updateBackToTop = () => {
+    if (backToTop) backToTop.hidden = window.scrollY < 400;
+  };
+  updateBackToTop();
+  window.addEventListener('scroll', updateBackToTop, { passive: true });
+</script>

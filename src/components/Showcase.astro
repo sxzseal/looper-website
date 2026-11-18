@@ -1,108 +1,153 @@
 ---
-// 场景展示:粘性滚动,左右两侧交替
 const scenarios = [
   {
-    tag: '每日汇总',
-    title: '把散落的信息整理成一份可交付的日报',
-    desc: '将 PR、Issue、日历和协作消息串成一条汇总流程。需要时一键运行，结果与每一步的输出都会保留，方便复核和复用。',
-    tint: 'violet',
-    codeLines: [
-      { prefix: '$', text: 'loop run daily-report' },
-      { prefix: '→', text: 'fetching pr / issue / cal ...', muted: true },
-      { prefix: '→', text: 'summarize by claude ...', muted: true },
-      { prefix: '✓', text: 'saved: reports/2026-07-23.md', ok: true },
-    ],
+    id: 'research',
+    label: '资料调研',
+    title: '信息很多，先理出头绪。',
+    description:
+      '带上问题与参考材料，让 Agent 检索、整理和比对信息，再将结论写成文档。来源与交付文件放在同一个工作空间，方便回看。',
+    prompt: '整理这些资料，对比不同方案，写一份带来源的调研报告。',
+    steps: ['读取参考材料', '检索与交叉比对', '整理报告与来源'],
+    output: '调研报告.docx',
+    type: 'DOC',
+    detail: '从收集到成稿，在同一处完成',
   },
   {
-    tag: '代码审查',
-    title: '把代码审查拆成可追踪的环节',
-    desc: '把获取 diff、扫描、审查与风险确认编排为流程。每一步独立记录，发现的问题能回到对应环节，而不是散落在一次对话里。',
-    tint: 'cyan',
-    codeLines: [
-      { prefix: '$', text: 'loop run code-review --pr 428' },
-      { prefix: '·', text: 'scan: 3 patterns hit', muted: true },
-      { prefix: '·', text: 'llm judge x5 ...', muted: true },
-      { prefix: '⚠', text: '2 critical · 1 high', warn: true },
-    ],
+    id: 'project',
+    label: '项目协作',
+    title: '把项目上下文，变成行动。',
+    description:
+      '在本地项目中读取代码、调用终端，逐步完成修改与检查。运行记录保留工具调用与结果，便于复核和继续推进。',
+    prompt: '检查这个项目的登录流程，定位问题，完成修复并验证。',
+    steps: ['理解项目与定位问题', '修改代码与运行检查', '汇总改动和验证结果'],
+    output: '改动与验证记录',
+    type: 'DEV',
+    detail: '文件、终端与任务上下文相连',
   },
   {
-    tag: '内容生产',
-    title: '一次调研，衍生多份交付物',
-    desc: '让同一份材料分支生成 PRD、周报、演示稿或博客草稿。源材料更新后，按需重跑下游步骤，减少重复整理。',
-    tint: 'pink',
-    codeLines: [
-      { prefix: '$', text: 'loop run research-fanout' },
-      { prefix: '⤳', text: 'draft prd.md', muted: true },
-      { prefix: '⤳', text: 'draft slide.md', muted: true },
-      { prefix: '⤳', text: 'draft blog.md', muted: true },
-    ],
+    id: 'workflow',
+    label: '流程复用',
+    title: '这次做对，下次接着用。',
+    description:
+      '在对话里把任务起草为工作流，再到画布调整节点、依赖、并行与循环。确认后保存，让反复发生的工作有一条熟悉的路径。',
+    prompt: '把代码审查整理成工作流，分别检查逻辑、质量、安全和规范。',
+    steps: ['在会话中起草工作流', '在画布上调整与确认', '保存到工作流库'],
+    output: '代码审查工作流',
+    type: 'FLOW',
+    detail: '一次梳理，沉淀自己的工作方法',
   },
 ];
-
-const tintMap: Record<string, string> = {
-  violet: 'bg-aurora-violet/20 border-aurora-violet/40 text-aurora-violet',
-  cyan: 'bg-aurora-cyan/20 border-aurora-cyan/40 text-aurora-cyan',
-  pink: 'bg-aurora-pink/20 border-aurora-pink/40 text-aurora-pink',
-};
-
-const glowMap: Record<string, string> = {
-  violet: 'bg-aurora-violet/25',
-  cyan: 'bg-aurora-cyan/25',
-  pink: 'bg-aurora-pink/25',
-};
 ---
 
-<section id="showcase" class="relative py-32 px-4">
-  <div class="mx-auto max-w-6xl">
-    <div class="text-center mb-24">
-      <p class="section-eyebrow reveal">使用场景</p>
-      <h2 class="reveal text-4xl md:text-5xl font-bold tracking-tight text-gradient">
-        用流程处理那些反复发生的工作
-      </h2>
+<section id="showcase" class="section showcase-section">
+  <div class="shell">
+    <div class="section-heading" data-reveal>
+      <div>
+        <p class="eyebrow">工作方式</p>
+        <h2>从一件具体的事开始。</h2>
+      </div>
+      <p>
+        在同一个工作空间里整理资料、推进项目，
+        <br />
+        把重复做的事变成可复用的流程。
+      </p>
     </div>
-
-    <div class="space-y-32">
+    <div class="showcase-tabs" role="tablist" aria-label="工作场景">
       {scenarios.map((s, i) => (
-        <div class={`grid md:grid-cols-2 gap-12 items-center ${i % 2 === 1 ? 'md:grid-flow-dense' : ''}`}>
-          <!-- 文字块 -->
-          <div class={`reveal ${i % 2 === 1 ? 'md:col-start-2' : ''}`}>
-            <div class="scenario-tag">
-              {s.tag}
-            </div>
-            <h3 class="text-3xl md:text-4xl font-semibold mb-4 text-gradient leading-tight">
-              {s.title}
-            </h3>
-            <p class="text-white/60 leading-relaxed">
-              {s.desc}
-            </p>
+        <button
+          id={`tab-${s.id}`}
+          role="tab"
+          aria-selected={i === 0 ? 'true' : 'false'}
+          aria-controls={`panel-${s.id}`}
+          tabindex={i === 0 ? 0 : -1}
+          data-tab={s.id}
+        >
+          {s.label}
+        </button>
+      ))}
+    </div>
+    {scenarios.map((s, i) => (
+      <div
+        class="scenario-panel"
+        id={`panel-${s.id}`}
+        role="tabpanel"
+        aria-labelledby={`tab-${s.id}`}
+        hidden={i !== 0}
+        tabindex="0"
+      >
+        <div class="scenario-copy">
+          <h3>{s.title}</h3>
+          <p>{s.description}</p>
+          <a href="#download" class="text-link">
+            用 Looper 开始 <span aria-hidden="true">↗</span>
+          </a>
+        </div>
+        <div class="task-demo">
+          <div class="demo-topbar">
+            <span aria-hidden="true">
+              <i></i>
+              <i></i>
+              <i></i>
+            </span>
+            <span>looper / 工作空间</span>
+            <span class="demo-label">场景示意</span>
           </div>
-
-          <!-- 代码卡片 -->
-          <div class={`reveal-scale relative ${i % 2 === 1 ? 'md:col-start-1 md:row-start-1' : ''}`}>
-            <div class="glass-strong relative overflow-hidden">
-              <div class="flex items-center justify-between px-4 py-2.5 border-b border-white/[0.06]">
-                <div class="text-[10px] text-white/45 font-mono">LOOPER / RUN LOG</div>
-                <div class="text-[10px] text-white/30 font-mono">RESULT</div>
-              </div>
-              <div class="p-5 font-mono text-xs space-y-2 min-h-[180px]">
-                {s.codeLines.map((line) => (
-                  <div class="flex gap-3">
-                    <span class={
-                      line.ok ? 'text-emerald-400 shrink-0'
-                      : line.warn ? 'text-aurora-amber shrink-0'
-                      : line.muted ? 'text-white/30 shrink-0'
-                      : 'text-aurora-cyan shrink-0'
-                    }>{line.prefix}</span>
-                    <span class={line.muted ? 'text-white/40' : line.ok ? 'text-white/90' : 'text-white/80'}>
-                      {line.text}
-                    </span>
-                  </div>
-                ))}
+          <div class="demo-body">
+            <div class="demo-user">
+              <span>你</span>
+              <p>{s.prompt}</p>
+            </div>
+            <div class="demo-agent">
+              <img src="/logo-mark.svg" width="25" height="25" alt="Looper" />
+              <span>让我们一步步完成。</span>
+            </div>
+            <ol class="demo-steps">
+              {s.steps.map((step) => (
+                <li>
+                  <span>✓</span>
+                  {step}
+                </li>
+              ))}
+            </ol>
+            <div class="demo-output">
+              <span class="output-icon mono">{s.type}</span>
+              <div>
+                <strong>{s.output}</strong>
+                <small>{s.detail}</small>
               </div>
             </div>
           </div>
         </div>
-      ))}
-    </div>
+      </div>
+    ))}
   </div>
 </section>
+<script>
+  const tabs = Array.from(
+    document.querySelectorAll<HTMLButtonElement>('[data-tab]'),
+  );
+  function activate(tab: HTMLButtonElement) {
+    tabs.forEach((item) => {
+      const selected = item === tab;
+      item.setAttribute('aria-selected', String(selected));
+      item.tabIndex = selected ? 0 : -1;
+      const panel = document.getElementById(`panel-${item.dataset.tab}`);
+      if (panel) panel.hidden = !selected;
+    });
+  }
+  tabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => activate(tab));
+    tab.addEventListener('keydown', (e) => {
+      let next = index;
+      if (e.key === 'ArrowRight') next = (index + 1) % tabs.length;
+      else if (e.key === 'ArrowLeft')
+        next = (index - 1 + tabs.length) % tabs.length;
+      else if (e.key === 'Home') next = 0;
+      else if (e.key === 'End') next = tabs.length - 1;
+      else return;
+      e.preventDefault();
+      activate(tabs[next]);
+      tabs[next].focus();
+    });
+  });
+</script>

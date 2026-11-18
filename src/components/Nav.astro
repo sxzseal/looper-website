@@ -1,36 +1,60 @@
----
-// 顶部固定导航栏
----
-
-<header class="site-header fixed inset-x-0 top-0 z-50 h-[64px]">
-  <div class="mx-auto flex h-full w-full max-w-7xl items-center px-5 sm:px-8">
-    <nav class="site-header-nav relative flex w-full items-center justify-between gap-4" aria-label="主导航">
-      <a href="#" class="site-brand group flex shrink-0 items-center gap-2.5" aria-label="Looper 首页">
-        <span class="site-brand-mark">
-          <img
-            src="/logo.png"
-            alt=""
-            width="32"
-            height="32"
-            class="h-7 w-7 object-contain invert transition-transform duration-300 group-hover:scale-105 sm:h-8 sm:w-8"
-          />
-        </span>
-        <span class="text-sm font-semibold tracking-tight text-white">Looper</span>
-      </a>
-
-      <ul class="site-nav-menu absolute left-1/2 hidden -translate-x-1/2 items-center gap-2 text-sm text-white/60 md:flex">
-        <li><a href="#features" class="site-nav-link">功能</a></li>
-        <li><a href="#showcase" class="site-nav-link">场景</a></li>
-        <li><a href="#changelog" class="site-nav-link">更新</a></li>
-        <li><a href="#faq" class="site-nav-link">FAQ</a></li>
-      </ul>
-
-      <a
-        href="#download"
-        class="site-download inline-flex shrink-0 items-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-semibold text-ink-950 transition-all duration-300 sm:px-4"
-      >
-        下载 Looper
-      </a>
-    </nav>
-  </div>
+<header class="site-header">
+  <nav class="shell nav-inner" aria-label="主导航">
+    <a class="brand" href="#top" aria-label="Looper 首页">
+      <img src="/logo-mark.svg" width="32" height="32" alt="" />
+      <span>Looper</span>
+    </a>
+    <div class="nav-links">
+      <a href="#features">产品能力</a>
+      <a href="#showcase">工作方式</a>
+      <a href="#changelog">更新日志</a>
+    </div>
+    <a class="nav-download" href="#download">
+      下载 Looper <span aria-hidden="true">↗</span>
+    </a>
+    <button
+      class="menu-toggle"
+      aria-label="展开导航"
+      aria-expanded="false"
+      aria-controls="mobile-nav"
+    >
+      <span></span>
+      <span></span>
+    </button>
+    <div class="mobile-nav" id="mobile-nav" hidden>
+      <a href="#features">产品能力</a>
+      <a href="#showcase">工作方式</a>
+      <a href="#changelog">更新日志</a>
+      <a href="#faq">常见问题</a>
+      <a href="#download">下载 Looper</a>
+    </div>
+  </nav>
 </header>
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.menu-toggle');
+  const menu = document.querySelector<HTMLElement>('.mobile-nav');
+  if (toggle && menu) {
+    const close = () => {
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.setAttribute('aria-label', '展开导航');
+      menu.hidden = true;
+    };
+    toggle.addEventListener('click', () => {
+      const open = toggle.getAttribute('aria-expanded') !== 'true';
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? '收起导航' : '展开导航');
+      menu.hidden = !open;
+    });
+    menu
+      .querySelectorAll('a')
+      .forEach((a) => a.addEventListener('click', close));
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape' || menu.hidden) return;
+      if (menu.contains(document.activeElement)) toggle.focus();
+      close();
+    });
+    window.matchMedia('(min-width: 761px)').addEventListener('change', (e) => {
+      if (e.matches) close();
+    });
+  }
+</script>

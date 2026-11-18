@@ -1,102 +1,50 @@
 ---
-// FAQ 手风琴
 const faqs = [
   {
-    q: 'Looper 是聊天工具，还是工作流工具？',
-    a: '两者结合使用。你可以在对话中说明目标，也可以把任务沉淀为工作流；画布负责组织节点与依赖，运行记录负责保留过程与结果。',
+    q: 'Looper 是什么？适合谁用？',
+    a: 'Looper 是本地运行的 AI 工作流桌面应用。你可以在对话中交办任务，让 Agent 结合文件、技能、终端和浏览器执行；也可以在画布中组织可复用的流程。适合需要处理资料、文档、代码和重复性多步任务的人。',
   },
   {
-    q: '数据会上传到云端吗？',
-    a: 'Looper 的工作流、运行记录和项目上下文由本机管理。使用云端模型或联网工具时，相关请求会发送给你选择的服务商或目标服务；请按自己的数据要求配置服务与权限。',
+    q: '开始使用前，需要准备什么？',
+    a: '安装适合自己系统的版本，在设置中配置模型服务商或兼容 Anthropic / OpenAI API 的网关，再选择工作项目。模型调用的费用与可用性取决于你配置的服务商。建议从一件具体的小任务开始。',
   },
   {
-    q: '和直接使用 AI 编程助手有什么区别？',
-    a: '一次对话适合即时协作；Looper 更适合把多步、可重复的任务组织起来。它提供工作流画布、技能管理、运行看板和权限模式，让执行过程更容易检查与复用。',
+    q: '本地运行，意味着数据不会离开电脑吗？',
+    a: '工作流、会话记录和文件由本机管理。使用云端模型时，请求中的相关内容会发送给你选择的模型服务商；使用浏览器和联网工具时，也会访问相应目标服务。你可以根据自己的数据要求配置模型、工具与权限。',
   },
   {
-    q: '工作流是什么样的？',
-    a: '一条工作流由节点、连线、变量与触发配置组成。你可以在画布中编辑它，保存到工作流库，也可以通过导入导出在不同环境之间迁移。',
+    q: '一定要先搭建工作流吗？',
+    a: '不需要。可以直接用自然语言说明目标，在对话中完成任务。需要复用时，再让 Agent 起草工作流，在画布中调整节点、依赖、并行与循环，确认后保存到工作流库。',
   },
   {
-    q: '支持哪些系统？',
-    a: '当前提供 macOS（Apple Silicon 与 Intel）和 Windows x64 构建。Linux 版本仍在规划中。',
+    q: '可以使用自己的 Skill 和模型吗？',
+    a: '可以。Looper 支持配置模型服务商与兼容网关，并可从 GitHub 导入 Skill。模型切换与技能管理都在桌面应用内完成，具体可用能力取决于所选模型及工具配置。',
   },
   {
-    q: 'Skill 怎么添加？',
-    a: '在「技能」页创建、编辑或安装 Skill；它们会由 Looper 的本地技能目录管理，并可在工作流节点中引用。',
+    q: '支持哪些系统？为什么下载版本与开发进展不同？',
+    a: '下载区分别提供 macOS Apple Silicon、macOS Intel 和 Windows x64 的稳定通道安装包。不同平台发布进度可能不同，按钮会显示对应版本。更新日志中的开发进展来自最新源码，功能以实际安装版本为准；部分系统操作的支持范围也因平台而异。',
   },
 ];
 ---
 
-<section id="faq" class="relative py-32 px-4">
-  <div class="mx-auto max-w-3xl">
-    <div class="text-center mb-16">
-      <p class="section-eyebrow reveal">常见问题</p>
-      <h2 class="reveal text-4xl md:text-5xl font-bold tracking-tight text-gradient">
-        你可能会问
-      </h2>
+<section id="faq" class="section faq-section">
+  <div class="shell faq-layout">
+    <div data-reveal>
+      <p class="eyebrow">常见问题</p>
+      <h2>你可能想知道。</h2>
     </div>
-
-    <div class="stagger space-y-3">
+    <div class="faq-list" data-reveal>
       {faqs.map((f) => (
-        <details class="faq-item group glass hover:border-white/20 transition-colors" data-faq-item>
-          <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none" aria-expanded="false">
-            <span class="font-medium text-white/90 group-hover:text-white transition-colors">
-              {f.q}
-            </span>
-            <span class="faq-toggle" aria-hidden="true">
-              <span class="faq-toggle-label faq-toggle-label-expand">展开</span>
-              <span class="faq-toggle-label faq-toggle-label-collapse">收起</span>
+        <details>
+          <summary>
+            {f.q}
+            <span class="faq-plus" aria-hidden="true">
+              +
             </span>
           </summary>
-          <div class="faq-answer">
-            <div class="px-6 pb-5 -mt-1 text-white/60 leading-relaxed text-sm">
-              {f.a}
-            </div>
-          </div>
+          <p>{f.a}</p>
         </details>
       ))}
     </div>
   </div>
 </section>
-
-<script>
-  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-  document.querySelectorAll<HTMLDetailsElement>('[data-faq-item]').forEach((item) => {
-    const summary = item.querySelector<HTMLElement>('summary');
-    if (!summary) return;
-
-    let animation: Animation | undefined;
-
-    summary.addEventListener('click', (event) => {
-      event.preventDefault();
-      if (animation) return;
-
-      const isOpening = !item.open;
-      summary.setAttribute('aria-expanded', String(isOpening));
-
-      if (reduceMotion) {
-        item.open = isOpening;
-        return;
-      }
-
-      const startHeight = item.offsetHeight;
-      if (isOpening) item.open = true;
-      const endHeight = isOpening ? item.scrollHeight : summary.offsetHeight;
-
-      item.style.overflow = 'hidden';
-      animation = item.animate(
-        { height: [`${startHeight}px`, `${endHeight}px`] },
-        { duration: 320, easing: 'cubic-bezier(.22, 1, .36, 1)' },
-      );
-
-      animation.onfinish = () => {
-        if (!isOpening) item.open = false;
-        item.style.height = '';
-        item.style.overflow = '';
-        animation = undefined;
-      };
-    });
-  });
-</script>

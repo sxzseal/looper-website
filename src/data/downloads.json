@@ -1,0 +1,13 @@
+{
+  "darwin-arm64": {
+    "version": "0.10.0",
+    "url": "https://releases.sxlw.ltd/releases/stable-0.10.0-20261114-darwin-arm64-594d9b1c0ae8/Looper-0.10.0-arm64-mac.zip",
+    "size": 253984331
+  },
+  "darwin-x64": null,
+  "win32-x64": {
+    "version": "0.10.0",
+    "url": "https://releases.sxlw.ltd/releases/stable-0.10.0-20261114-win32-x64-594d9b1c0ae8/Looper%20Setup%200.10.0.exe",
+    "size": 206163478
+  }
+}
