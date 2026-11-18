@@ -1,4 +1,6 @@
 ---
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+
 const scenarios = [
   {
     id: 'research',
@@ -98,7 +100,7 @@ const scenarios = [
               <p>{s.prompt}</p>
             </div>
             <div class="demo-agent">
-              <img src="/logo-mark.svg" width="25" height="25" alt="Looper" />
+              <img src={`${base}/logo-mark.svg`} width="25" height="25" alt="Looper" />
               <span>让我们一步步完成。</span>
             </div>
             <ol class="demo-steps">
