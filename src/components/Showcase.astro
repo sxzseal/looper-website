@@ -1,42 +1,40 @@
 ---
-const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+import ProductImage from './ProductImage.astro';
+import { screenshots } from '../data/product-images';
 
 const scenarios = [
   {
     id: 'research',
     label: '资料调研',
-    title: '信息很多，先理出头绪。',
+    summary: '从参考材料，到清晰结论',
+    title: '把零散资料，整理成清晰结论。',
     description:
-      '带上问题与参考材料，让 Agent 检索、整理和比对信息，再将结论写成文档。来源与交付文件放在同一个工作空间，方便回看。',
-    prompt: '整理这些资料，对比不同方案，写一份带来源的调研报告。',
-    steps: ['读取参考材料', '检索与交叉比对', '整理报告与来源'],
-    output: '调研报告.docx',
-    type: 'DOC',
-    detail: '从收集到成稿，在同一处完成',
+      '带上问题与参考材料，整理信息、对比方案。结论、来源与文件留在同一个工作空间，方便继续推进。',
+    screenshot: screenshots.research,
+    detail: '资料整理、方案对比与下一步建议',
+    icon: 'M10 3H4v18h16V9l-6-6Zm4 0v6h6M8 13h8m-8 4h5',
   },
   {
     id: 'project',
     label: '项目协作',
-    title: '把项目上下文，变成行动。',
+    summary: '让对话、代码与文件相连',
+    title: '讨论到哪一步，项目就向前一步。',
     description:
-      '在本地项目中读取代码、调用终端，逐步完成修改与检查。运行记录保留工具调用与结果，便于复核和继续推进。',
-    prompt: '检查这个项目的登录流程，定位问题，完成修复并验证。',
-    steps: ['理解项目与定位问题', '修改代码与运行检查', '汇总改动和验证结果'],
-    output: '改动与验证记录',
-    type: 'DEV',
-    detail: '文件、终端与任务上下文相连',
+      '围绕同一个项目讨论问题，并排查看代码与文件。结合终端与工具执行，让上下文接得上，改动有据可查。',
+    screenshot: screenshots.project,
+    detail: '对照任务讨论，直接预览项目代码',
+    icon: 'm8 7-5 5 5 5m8-10 5 5-5 5m-3-13-2 16',
   },
   {
     id: 'workflow',
     label: '流程复用',
-    title: '这次做对，下次接着用。',
+    summary: '这次有效的步骤，下次接着用',
+    title: '把做对的步骤，留给下一次。',
     description:
-      '在对话里把任务起草为工作流，再到画布调整节点、依赖、并行与循环。确认后保存，让反复发生的工作有一条熟悉的路径。',
-    prompt: '把代码审查整理成工作流，分别检查逻辑、质量、安全和规范。',
-    steps: ['在会话中起草工作流', '在画布上调整与确认', '保存到工作流库'],
-    output: '代码审查工作流',
-    type: 'FLOW',
-    detail: '一次梳理，沉淀自己的工作方法',
+      '先在对话中起草，再到画布调整节点、依赖与并行关系。确认后保存到工作流库，让重复的工作有熟悉的路径。',
+    screenshot: screenshots.workflow,
+    detail: '编辑节点提示词与工作流依赖关系',
+    icon: 'M6 3v12a3 3 0 0 0 3 3h9M6 9h9a3 3 0 0 0 3-3V3M3 3h6m6 0h6m-6 15 3 3 3-3',
   },
 ];
 ---
@@ -45,80 +43,75 @@ const scenarios = [
   <div class="shell">
     <div class="section-heading" data-reveal>
       <div>
-        <p class="eyebrow">工作方式</p>
-        <h2>从一件具体的事开始。</h2>
+        <p class="eyebrow">把可能，变成日常</p>
+        <h2>
+          你的下一件事，
+          <br />
+          <span class="muted-heading">从这里开始。</span>
+        </h2>
       </div>
       <p>
-        在同一个工作空间里整理资料、推进项目，
+        选一件熟悉的工作，
         <br />
-        把重复做的事变成可复用的流程。
+        看看 Looper 如何把目标接到实际行动。
       </p>
     </div>
+
     <div class="showcase-tabs" role="tablist" aria-label="工作场景">
-      {scenarios.map((s, i) => (
+      {scenarios.map((scenario, i) => (
         <button
-          id={`tab-${s.id}`}
+          id={`tab-${scenario.id}`}
           role="tab"
+          aria-label={scenario.label}
+          aria-describedby={`scenario-hint-${scenario.id}`}
           aria-selected={i === 0 ? 'true' : 'false'}
-          aria-controls={`panel-${s.id}`}
+          aria-controls={`panel-${scenario.id}`}
           tabindex={i === 0 ? 0 : -1}
-          data-tab={s.id}
+          data-tab={scenario.id}
         >
-          {s.label}
+          <span class="showcase-choice-icon" aria-hidden="true">
+            <svg width="23" height="23" viewBox="0 0 24 24" fill="none">
+              <path
+                d={scenario.icon}
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </span>
+          <span class="showcase-choice-copy">
+            <strong>{scenario.label}</strong>
+            <span id={`scenario-hint-${scenario.id}`}>{scenario.summary}</span>
+          </span>
         </button>
       ))}
     </div>
-    {scenarios.map((s, i) => (
+
+    {scenarios.map((scenario, i) => (
       <div
         class="scenario-panel"
-        id={`panel-${s.id}`}
+        id={`panel-${scenario.id}`}
         role="tabpanel"
-        aria-labelledby={`tab-${s.id}`}
+        aria-labelledby={`tab-${scenario.id}`}
         hidden={i !== 0}
         tabindex="0"
       >
-        <div class="scenario-copy">
-          <h3>{s.title}</h3>
-          <p>{s.description}</p>
-          <a href="#download" class="text-link">
-            用 Looper 开始 <span aria-hidden="true">↗</span>
+        <div class="scenario-overview">
+          <div class="scenario-copy">
+            <h3>{scenario.title}</h3>
+            <p>{scenario.description}</p>
+          </div>
+          <a href="#download" class="scenario-action">
+            用 Looper 开始
           </a>
         </div>
-        <div class="task-demo">
-          <div class="demo-topbar">
-            <span aria-hidden="true">
-              <i></i>
-              <i></i>
-              <i></i>
-            </span>
-            <span>looper / 工作空间</span>
-            <span class="demo-label">场景示意</span>
-          </div>
-          <div class="demo-body">
-            <div class="demo-user">
-              <span>你</span>
-              <p>{s.prompt}</p>
-            </div>
-            <div class="demo-agent">
-              <img src={`${base}/logo-mark.svg`} width="25" height="25" alt="Looper" />
-              <span>让我们一步步完成。</span>
-            </div>
-            <ol class="demo-steps">
-              {s.steps.map((step) => (
-                <li>
-                  <span>✓</span>
-                  {step}
-                </li>
-              ))}
-            </ol>
-            <div class="demo-output">
-              <span class="output-icon mono">{s.type}</span>
-              <div>
-                <strong>{s.output}</strong>
-                <small>{s.detail}</small>
-              </div>
-            </div>
-          </div>
+        <div class="scenario-media">
+          <ProductImage
+            screenshot={scenario.screenshot}
+            caption={scenario.detail}
+            sizes="(max-width: 760px) calc(100vw - 76px), (max-width: 1280px) calc(100vw - 152px), 1128px"
+          />
         </div>
       </div>
     ))}
@@ -139,15 +132,15 @@ const scenarios = [
   }
   tabs.forEach((tab, index) => {
     tab.addEventListener('click', () => activate(tab));
-    tab.addEventListener('keydown', (e) => {
+    tab.addEventListener('keydown', (event) => {
       let next = index;
-      if (e.key === 'ArrowRight') next = (index + 1) % tabs.length;
-      else if (e.key === 'ArrowLeft')
+      if (event.key === 'ArrowRight') next = (index + 1) % tabs.length;
+      else if (event.key === 'ArrowLeft')
         next = (index - 1 + tabs.length) % tabs.length;
-      else if (e.key === 'Home') next = 0;
-      else if (e.key === 'End') next = tabs.length - 1;
+      else if (event.key === 'Home') next = 0;
+      else if (event.key === 'End') next = tabs.length - 1;
       else return;
-      e.preventDefault();
+      event.preventDefault();
       activate(tabs[next]);
       tabs[next].focus();
     });

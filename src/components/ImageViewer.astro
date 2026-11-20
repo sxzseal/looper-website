@@ -1,0 +1,54 @@
+<dialog class="image-viewer" aria-labelledby="image-viewer-title">
+  <div class="image-viewer-heading">
+    <div>
+      <h2 id="image-viewer-title">产品界面预览</h2>
+      <p>本地 Looper 实拍 · 演示内容，窄屏可横向查看</p>
+    </div>
+    <button
+      type="button"
+      class="image-viewer-close"
+      aria-label="关闭产品截图预览"
+    >
+      关闭 <span aria-hidden="true">×</span>
+    </button>
+  </div>
+  <div
+    class="image-viewer-body"
+    tabindex="0"
+    role="region"
+    aria-label="产品截图，可横向滚动"
+  >
+    <img width="1680" height="1027" alt="" />
+  </div>
+</dialog>
+
+<script>
+  const dialog = document.querySelector<HTMLDialogElement>('.image-viewer');
+  const image = dialog?.querySelector<HTMLImageElement>('img');
+  const title = dialog?.querySelector<HTMLElement>('#image-viewer-title');
+  const scroller = dialog?.querySelector<HTMLElement>('.image-viewer-body');
+  if (dialog && image && title && typeof dialog.showModal === 'function') {
+    document
+      .querySelectorAll<HTMLAnchorElement>('[data-image-preview]')
+      .forEach((link) => {
+        link.addEventListener('click', (event) => {
+          if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey)
+            return;
+          event.preventDefault();
+          title.textContent = link.dataset.imageTitle ?? '产品界面预览';
+          image.alt = link.dataset.imageAlt ?? '';
+          image.width = Number(link.dataset.imageWidth) || 1680;
+          image.height = Number(link.dataset.imageHeight) || 1027;
+          image.src = link.href;
+          dialog.showModal();
+          scroller?.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+        });
+      });
+    dialog
+      .querySelector('.image-viewer-close')
+      ?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) dialog.close();
+    });
+  }
+</script>

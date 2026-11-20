@@ -1,0 +1,56 @@
+---
+import ProductImage from './ProductImage.astro';
+import { screenshots } from '../data/product-images';
+---
+
+<section id="workspace" class="section workspace-section">
+  <div class="shell">
+    <div class="section-heading" data-reveal>
+      <div>
+        <p class="eyebrow">让经验，成为下一次的起点</p>
+        <h2>
+          流程与技能，
+          <br />
+          <span class="muted-heading">都有自己的位置。</span>
+        </h2>
+      </div>
+      <p>
+        在真实界面里，看看 Looper 如何
+        <br />
+        收纳已经理清的步骤与熟悉的工作方法。
+      </p>
+    </div>
+    <div class="workspace-gallery">
+      <article class="workspace-story" data-reveal>
+        <div class="workspace-story-copy">
+          <span class="gallery-category">WORKFLOWS / 工作流库</span>
+          <h3>好方法，随时接着用。</h3>
+          <p>
+            从调研、审查到每周整理，保存自己的节点与依赖，在需要时继续调整。
+          </p>
+        </div>
+        <ProductImage
+          screenshot={screenshots.library}
+          caption="集中管理已编排的工作流"
+        />
+      </article>
+      <article class="workspace-story" data-reveal>
+        <div class="workspace-story-copy">
+          <span class="gallery-category">SKILLS / 技能</span>
+          <h3>让 Agent 用上你的工作方法。</h3>
+          <p>
+            查看内置技能，或导入自己的 Skill，在对话与工作流中复用熟悉的能力。
+          </p>
+        </div>
+        <ProductImage
+          screenshot={screenshots.skills}
+          caption="干净实例中的内置技能"
+        />
+      </article>
+    </div>
+    <p class="capture-note">
+      以上截图来自独立启动的本地
+      Looper。对话、项目与工作流使用演示数据，展示当前开发版界面；功能以实际安装版本为准。
+    </p>
+  </div>
+</section>
